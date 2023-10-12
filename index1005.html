@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이 달의 연애운 알아보기</title>
     <style>
-        @font-face {
+       @font-face {
             font-family: 'Nanum Grandpa Handwriting';
-            src: url('나눔손글씨 할아버지의나눔.ttf') format('truetype');
+            src: url('nanum.ttf') format('truetype');
         }
         body {
             font-family: 'Nanum Grandpa Handwriting', cursive;
@@ -71,7 +71,6 @@
 
 <h1>이달의 연애운 알아보기</h1>
 <div class="card-container">
-
     <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면1">
     <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면2">
     <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면3">
@@ -93,12 +92,12 @@
     <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면19">
     <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면20">
     <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면21">
-    <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면22">
-</div>
+    <img class="card-back" src="voodoo-7840950_1280.png" alt="카드 뒷면" data-card-name="뒷면22"></div>
 <div class="card-details">
     <div class="card-info">
         <img id="cardImage" src="" alt="타로 카드 이미지">
     </div>
+    <audio id="cardSound" src="cardSlide8.mp3"></audio>
     <div class="card-description">
         <p id="cardResultCharacter"></p>
         <p id="cardResultInterpretation"></p>
@@ -107,9 +106,9 @@
 </div>
 
 <script>
-
+    // JavaScript 코드는 아래와 같이 수정합니다.
     const tarotDeck = [
-        { name: "뒷면1", character: "THE FOOL 광대", interpretation: "솔로라면 새로운 사랑을 찾을 수 있는 좋은 시기입니다. 당신의 새로운 사랑은 재미있고, 매력적이며, 흥미진진한 관계를 만들 줄 것입니다. 이미 연애 중이라면,이 카드는 당신이 충동적인 선택을 할 수 있는 것을 의미합니다. 예를 들면, 관계를 망치고 도망치거나 결혼을 결심하는 것 처럼 말입니다.", image: "01.png" },
+         { name: "뒷면1", character: "THE FOOL 광대", interpretation: "솔로라면 새로운 사랑을 찾을 수 있는 좋은 시기입니다. 당신의 새로운 사랑은 재미있고, 매력적이며, 흥미진진한 관계를 만들 줄 것입니다. 이미 연애 중이라면,이 카드는 당신이 충동적인 선택을 할 수 있는 것을 의미합니다. 예를 들면, 관계를 망치고 도망치거나 결혼을 결심하는 것 처럼 말입니다.", image: "01.png" },
         { name: "뒷면2", character: "THE MAGICIAN 마법사", interpretation: "마법사 카드는 능숙하고 매력적인 연인을 의미합니다. 지적이면서 충동적이며, 사랑의 표현을 아주 잘합니다. 새로운 장난기와 상상력을 가지고 사랑의 루틴을 뒤흔들 수 있습니다. 당신이 현재 솔로라면, 이 카드는 새로운 친구나 연인을 만날 기회가 있다는 것을 나타냅니다.", image: "02.png" },
         
         { name: "뒷면3", character: "THE HIGH PRIESTNESS 여사제", interpretation: "비밀스러운 연애가 진행 중이거나 예상치 못한 행복한 사건이 곧 일어날 것을 암시할 수 있습니다. 연애 중이라면, 당신이나 당신의 상대방이 감정을 표현하지 않는 조용하고 내성적인 성격을 가지고 있을 수 있음을 나타냅니다.", image: "03.png" },
@@ -132,21 +131,24 @@
         { name: "뒷면20", character : "THE SUN 태양",interpretation: "태양 카드는 사랑에 있어서 빛나는 기회와 긍정적인 전망을 보여줍니다. 이미 연인이 있다면, 이 카드는 미래에 밝은 시간 이 올 것임을 암시합니다. 아직 연인이 없다면, 이 카드는 새로운 사랑을 만나게 될 기회가 높다는 것을 나타냅니다.", image: "20.png" },
         { name: "뒷면21", character: "JUDGEMENT 심판", interpretation: "현재의 연인과의 관계가 경험이 될 것이며, 당신이 상대방과의 관계를 강화하는 방법을 배울 수 있습니다. 혼자인 경우, 당신이 평소와는 다른 타입의 사람을 만나는 것을 고려해 볼 시기일 수 있습니다.", image: "21.png" },
         { name: "뒷면22", character: "THE WORLD 세계",interpretation: "사랑의 관계에서 매우 긍정적인 메시지를 전달합니다. 현재 연인이 있다면, 깊은 연결과 서로를 이해하는데 성공했다는 것을 보여줍니다. 당신과 연인은 서로에게 행복을 줄 수 있고, 함께 성장하며, 공동의 목표를 위해 노력하고 있을 것입니다. 만약 혼 자라면, 이제는 새로운 사람들을 만나 사랑을 찾아나갈 좋은 시기입니다.", image: "22.png" }
-        ];
-
+       
+    ];
 
     const cardContainer = document.querySelector(".card-container");
     const cardBacks = document.querySelectorAll(".card-back");
-    function shuffleCards() {
-  for (let i = cardBacks.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    cardContainer.appendChild(cardBacks[j]);
-  }
-}
 
-window.addEventListener("DOMContentLoaded", shuffleCards);
+    function shuffleCards() {
+        for (let i = cardBacks.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            cardContainer.appendChild(cardBacks[j]);
+        }
+    }
+
+    window.addEventListener("DOMContentLoaded", shuffleCards);
+
     const cardResultCharacterElement = document.getElementById("cardResultCharacter");
     const cardResultInterpretationElement = document.getElementById("cardResultInterpretation");
+    const drawButton = document.getElementById("drawButton");
 
     cardBacks.forEach(cardBack => {
         cardBack.addEventListener("click", function() {
@@ -159,9 +161,12 @@ window.addEventListener("DOMContentLoaded", shuffleCards);
             cardResultCharacterElement.textContent = `당신의 카드는 ${selectedCard.character}입니다.`;
             cardResultInterpretationElement.textContent = selectedCard.interpretation;
 
+            // 소리 재생
+            const cardSound = document.getElementById("cardSound");
+            cardSound.play();
+
             document.body.style.backgroundImage = `url('after.jpg')`;
 
-            const drawButton = document.getElementById("drawButton");
             drawButton.style.display = "block";
 
             cardBacks.forEach(back => {
@@ -170,7 +175,6 @@ window.addEventListener("DOMContentLoaded", shuffleCards);
         });
     });
 
-    const drawButton = document.getElementById("drawButton");
     drawButton.addEventListener("click", function() {
         const cardImageElement = document.getElementById("cardImage");
         cardImageElement.src = "";
